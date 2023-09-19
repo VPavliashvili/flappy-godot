@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk8ja26ktrpyv"]
+
+[ext_resource type="Script" path="res://scripts/pillars_pool.gd" id="1_kqd16"]
+
+[node name="Root" type="Node2D"]
+
+[node name="pillars_pool" type="Node" parent="." node_paths=PackedStringArray("resolution_text")]
+script = ExtResource("1_kqd16")
+resolution_text = NodePath("../resolution_text")
+
+[node name="resolution_text" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 551.0
+offset_right = 634.0
+offset_bottom = 26.0
+grow_horizontal = 2
+text = "Resolution"
+vertical_alignment = 1

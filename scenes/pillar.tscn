@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cw5bggam6eimh"]
+
+[ext_resource type="Texture2D" uid="uid://dvk5djj7gvfx" path="res://sprites/square.png" id="1_tx8g6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_27ew4"]
+
+[node name="pillar" type="Node2D"]
+scale = Vector2(1, 4.5)
+
+[node name="visual" type="Sprite2D" parent="."]
+texture = ExtResource("1_tx8g6")
+
+[node name="body" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="body"]
+scale = Vector2(3.2, 3.2)
+shape = SubResource("RectangleShape2D_27ew4")
