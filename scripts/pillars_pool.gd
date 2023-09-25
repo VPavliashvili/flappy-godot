@@ -2,14 +2,20 @@ extends Node
 
 enum Placement { TOP = 1, BOTTOM = -1}
 
-@export var resolution_text: Label
+@export var pillars_starting_pos: Node2D
+@export_range(10, 50) var pillars_count: int
+@export_range(10, 100) var distance_beetween_pillar_x: float
+
 var pillar_prefab = preload("res://scenes/pillar.tscn")
+var start_pos_x: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	start_pos_x = pillars_starting_pos.position.x
 
 	var top_counter: int = 0
-	while top_counter < 10:
+	print(pillars_count)
+	while top_counter < pillars_count:
 		instantiate_pillar(Placement.TOP, top_counter)
 		top_counter += 1
 
@@ -18,11 +24,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
-
-func change_text() -> void:
-	var res = get_screen_width_height()
-	var format := "[W:%s;H:%s]"
-	resolution_text.text = format % [str(res.x), str(res.y)]
 
 func get_screen_width_height() -> Vector2i:
 	return DisplayServer.window_get_size()
@@ -44,9 +45,17 @@ func set_top_pillar_position(pillar: Node2D, line_number: int) -> void:
 
 	# 2.0 since I need half of the size of whole sprite to make it touch the upper end of the screen
 	var pos_y : float = float(screen_y) + float(size.y) / 2.0 * pillar.scale.y
-	var pos_x : int = 500 + line_number * 100
+	
+	var pos_x: float = start_pos_x + line_number * (size.x + distance_beetween_pillar_x)
 
 	pillar.position = Vector2(pos_x, pos_y)
 
 func set_bottom_pillar_position(_pillar: Node2D) -> void:
-	change_text()
+	pass
+
+# regarding path between top and down pillars
+# it should be implemented like I have whole X size in Y 
+# and A size path between the two pillars
+# and distance between A size path center point of pillar_pair[i], [i-1] and [i+1]
+# should not be greater than B
+#	X	Y	A and B are variables for sure

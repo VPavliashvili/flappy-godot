@@ -4,17 +4,11 @@
 
 [node name="Root" type="Node2D"]
 
-[node name="pillars_pool" type="Node" parent="." node_paths=PackedStringArray("resolution_text")]
+[node name="pillars_pool" type="Node" parent="." node_paths=PackedStringArray("pillars_starting_pos")]
 script = ExtResource("1_kqd16")
-resolution_text = NodePath("../resolution_text")
+pillars_starting_pos = NodePath("../pillars_start_position")
+pillars_count = 20
+distance_beetween_pillar_x = 32.703
 
-[node name="resolution_text" type="Label" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 551.0
-offset_right = 634.0
-offset_bottom = 26.0
-grow_horizontal = 2
-text = "Resolution"
-vertical_alignment = 1
+[node name="pillars_start_position" type="Node2D" parent="."]
+position = Vector2(430, 260)
