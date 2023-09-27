@@ -2,60 +2,63 @@ extends Node
 
 enum Placement { TOP = 1, BOTTOM = -1}
 
-@export var pillars_starting_pos: Node2D
-@export_range(10, 50) var pillars_count: int
-@export_range(10, 100) var distance_beetween_pillar_x: float
+@export var columns_starting_pos: Node2D
+@export_range(10, 50) var column_count: int
+@export_range(50, 300) var distance_beetween_pillar_x: int
+@export_range(50, 200) var next_path_diff: int
 
-var pillar_prefab = preload("res://scenes/pillar.tscn")
-var start_pos_x: float
+var column_prefab = preload("res://scenes/column.tscn")
+var rng: RandomNumberGenerator
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	start_pos_x = pillars_starting_pos.position.x
+	rng = RandomNumberGenerator.new()
 
-	var top_counter: int = 0
-	print(pillars_count)
-	while top_counter < pillars_count:
-		instantiate_pillar(Placement.TOP, top_counter)
-		top_counter += 1
-
-	instantiate_pillar(Placement.BOTTOM, 0)
+	instantiate_columns()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
 
-func get_screen_width_height() -> Vector2i:
-	return DisplayServer.window_get_size()
+func instantiate_columns() -> void:
+	var start_pos_x: int = int(columns_starting_pos.position.x)
+	var start_pos_y: int = int(columns_starting_pos.position.y)
+	var prev_pos_y: int = start_pos_y
 
-func instantiate_pillar(placement: Placement, line_number: int) -> void:
-	var pillar: Node2D = pillar_prefab.instantiate() as Node2D
-	add_child(pillar)
-	if placement == Placement.TOP:
-		set_top_pillar_position(pillar, line_number)
+	var counter: int = 0
+	while counter < column_count:
+		var column: Node2D = column_prefab.instantiate() as Node2D
+		add_child(column)
+
+		set_column_pos_upon_spawn(column, prev_pos_y, start_pos_x, counter)
+
+		prev_pos_y = int(column.position.y)
+		counter += 1
+
+func set_column_pos_upon_spawn(column: Node2D, prev_pos_y: int, start_pos_x: int, counter: int) -> void:
+	var size_x: int = column.get("size_x")
+	var pos_x: int = start_pos_x + counter * (size_x + distance_beetween_pillar_x)
+
+	var path_heigh = column.get("path_heigh")
+	var pos_y: float
+
+	var should_add: bool = rng.randi_range(1, 100) > 50
+	if should_add:
+		pos_y = prev_pos_y + path_heigh / 2
 	else:
-		set_bottom_pillar_position(pillar)
+		pos_y = prev_pos_y - path_heigh / 2
 
-func set_top_pillar_position(pillar: Node2D, line_number: int) -> void:
-	var sprite: Sprite2D = pillar.get_node("visual")
-	var size: Vector2i = sprite.texture.get_size()
-	# var screen: Vector2i = get_screen_width_height()
-	var screen_y : int = 0
-	var scale: Vector2 = pillar.scale
+	column.position = Vector2(pos_x, pos_y)
 
-	# 2.0 since I need half of the size of whole sprite to make it touch the upper end of the screen
-	var pos_y : float = float(screen_y) + float(size.y) / 2.0 * pillar.scale.y
-	
-	var pos_x: float = start_pos_x + line_number * (size.x + distance_beetween_pillar_x)
+# different approach of path differentiation positioning
+# func set_column_pos_upon_spawn(column: Node2D, prev_pos_y: int, start_pos_x: int, counter: int) -> void:
+# 	var size_x: int = column.get("size_x")
+# 	var pos_x: int = start_pos_x + counter * (size_x + distance_beetween_pillar_x)
+#
+# 	var path_pos_y: int = rng.randi_range(prev_pos_y - next_path_diff, prev_pos_y + next_path_diff)
+# 	var diff: int = path_pos_y - prev_pos_y
+#
+# 	column.position = Vector2i(pos_x, prev_pos_y + diff)
 
-	pillar.position = Vector2(pos_x, pos_y)
-
-func set_bottom_pillar_position(_pillar: Node2D) -> void:
+func reset_column_pos_as_last(_last_pos_x) -> void:
 	pass
-
-# regarding path between top and down pillars
-# it should be implemented like I have whole X size in Y 
-# and A size path between the two pillars
-# and distance between A size path center point of pillar_pair[i], [i-1] and [i+1]
-# should not be greater than B
-#	X	Y	A and B are variables for sure

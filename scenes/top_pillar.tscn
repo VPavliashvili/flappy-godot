@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cw5bggam6eimh"]
 
-[ext_resource type="Texture2D" uid="uid://dvk5djj7gvfx" path="res://sprites/square.png" id="1_tx8g6"]
+[ext_resource type="Texture2D" uid="uid://dvk5djj7gvfx" path="res://sprites/square.png" id="1_gf4at"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_27ew4"]
 
@@ -8,7 +8,8 @@
 scale = Vector2(1, 4.5)
 
 [node name="visual" type="Sprite2D" parent="."]
-texture = ExtResource("1_tx8g6")
+self_modulate = Color(0, 0.478431, 0, 1)
+texture = ExtResource("1_gf4at")
 
 [node name="body" type="StaticBody2D" parent="."]
 

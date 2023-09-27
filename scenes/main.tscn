@@ -4,11 +4,12 @@
 
 [node name="Root" type="Node2D"]
 
-[node name="pillars_pool" type="Node" parent="." node_paths=PackedStringArray("pillars_starting_pos")]
+[node name="pillars_pool" type="Node" parent="." node_paths=PackedStringArray("columns_starting_pos")]
 script = ExtResource("1_kqd16")
-pillars_starting_pos = NodePath("../pillars_start_position")
-pillars_count = 20
-distance_beetween_pillar_x = 32.703
+columns_starting_pos = NodePath("../columns_start_position")
+column_count = 20
+distance_beetween_pillar_x = 150
+next_path_diff = 80
 
-[node name="pillars_start_position" type="Node2D" parent="."]
+[node name="columns_start_position" type="Node2D" parent="."]
 position = Vector2(430, 260)

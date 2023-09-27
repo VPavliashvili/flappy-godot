@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://1puojd22x70m"]
+
+[ext_resource type="Script" path="res://scripts/column.gd" id="1_llrt6"]
+[ext_resource type="PackedScene" uid="uid://c8nwm0l1iv1my" path="res://scenes/bottom_pillar.tscn" id="1_ms3um"]
+[ext_resource type="PackedScene" uid="uid://cw5bggam6eimh" path="res://scenes/top_pillar.tscn" id="2_108lt"]
+[ext_resource type="PackedScene" uid="uid://beb4rlfsdnu1d" path="res://scenes/path_pillar.tscn" id="3_svfft"]
+
+[node name="column" type="Node2D"]
+script = ExtResource("1_llrt6")
+
+[node name="top_pillar" parent="." instance=ExtResource("2_108lt")]
+position = Vector2(0, -1021)
+scale = Vector2(1, 30)
+
+[node name="bottom_pillar" parent="." instance=ExtResource("1_ms3um")]
+position = Vector2(0, 1021)
+scale = Vector2(1, 30)
+
+[node name="path" parent="." instance=ExtResource("3_svfft")]
+scale = Vector2(1, 1.9)
