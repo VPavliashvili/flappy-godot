@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://beb4rlfsdnu1d" path="res://scenes/path_pillar.tscn" id="3_svfft"]
 
 [node name="column" type="Node2D"]
+position = Vector2(711, 289)
 script = ExtResource("1_llrt6")
 
 [node name="top_pillar" parent="." instance=ExtResource("2_108lt")]
@@ -17,4 +18,5 @@ position = Vector2(0, 1021)
 scale = Vector2(1, 30)
 
 [node name="path" parent="." instance=ExtResource("3_svfft")]
-scale = Vector2(1, 1.9)
+position = Vector2(7, 0)
+scale = Vector2(0.28, 1.9)

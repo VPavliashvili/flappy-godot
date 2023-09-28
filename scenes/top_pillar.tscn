@@ -11,8 +11,8 @@ scale = Vector2(1, 4.5)
 self_modulate = Color(0, 0.478431, 0, 1)
 texture = ExtResource("1_gf4at")
 
-[node name="body" type="StaticBody2D" parent="."]
+[node name="area" type="Area2D" parent="." groups=["obstacle"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="body"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="area"]
 scale = Vector2(3.2, 3.2)
 shape = SubResource("RectangleShape2D_27ew4")

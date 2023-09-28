@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dk8ja26ktrpyv"]
+[gd_scene load_steps=3 format=3 uid="uid://dk8ja26ktrpyv"]
 
 [ext_resource type="Script" path="res://scripts/pillars_pool.gd" id="1_kqd16"]
+[ext_resource type="PackedScene" uid="uid://cbca5cokjvwr6" path="res://scenes/bird.tscn" id="2_bkt2e"]
 
-[node name="Root" type="Node2D"]
+[node name="main" type="Node2D"]
 
 [node name="pillars_pool" type="Node" parent="." node_paths=PackedStringArray("columns_starting_pos")]
 script = ExtResource("1_kqd16")
@@ -13,3 +14,8 @@ next_path_diff = 80
 
 [node name="columns_start_position" type="Node2D" parent="."]
 position = Vector2(430, 260)
+
+[node name="bird" parent="." instance=ExtResource("2_bkt2e")]
+process_mode = 4
+visible = false
+position = Vector2(97, 314)

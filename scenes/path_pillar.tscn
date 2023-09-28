@@ -4,8 +4,8 @@
 
 [node name="path" type="Node2D"]
 
-[node name="body" type="StaticBody2D" parent="."]
+[node name="area" type="Area2D" parent="." groups=["path"]]
 
-[node name="collider" type="CollisionShape2D" parent="body"]
+[node name="collider" type="CollisionShape2D" parent="area"]
 scale = Vector2(3.2, 3.2)
 shape = SubResource("RectangleShape2D_b5w2d")

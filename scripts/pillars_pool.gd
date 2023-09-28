@@ -50,15 +50,5 @@ func set_column_pos_upon_spawn(column: Node2D, prev_pos_y: int, start_pos_x: int
 
 	column.position = Vector2(pos_x, pos_y)
 
-# different approach of path differentiation positioning
-# func set_column_pos_upon_spawn(column: Node2D, prev_pos_y: int, start_pos_x: int, counter: int) -> void:
-# 	var size_x: int = column.get("size_x")
-# 	var pos_x: int = start_pos_x + counter * (size_x + distance_beetween_pillar_x)
-#
-# 	var path_pos_y: int = rng.randi_range(prev_pos_y - next_path_diff, prev_pos_y + next_path_diff)
-# 	var diff: int = path_pos_y - prev_pos_y
-#
-# 	column.position = Vector2i(pos_x, prev_pos_y + diff)
-
 func reset_column_pos_as_last(_last_pos_x) -> void:
 	pass

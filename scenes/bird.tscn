@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbca5cokjvwr6"]
+
+[ext_resource type="Texture2D" uid="uid://drd4el2j3hax4" path="res://sprites/icon.svg" id="1_7t4kj"]
+[ext_resource type="Script" path="res://scripts/bird.gd" id="1_kfpet"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_buyd8"]
+size = Vector2(28.7037, 26.4018)
+
+[node name="bird" type="Area2D" groups=["player"]]
+position = Vector2(111, 360)
+script = ExtResource("1_kfpet")
+
+[node name="collision_shape" type="CollisionShape2D" parent="."]
+scale = Vector2(2.16, 2.34833)
+shape = SubResource("RectangleShape2D_buyd8")
+
+[node name="visual" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.627451)
+scale = Vector2(0.52, 0.52)
+texture = ExtResource("1_7t4kj")
