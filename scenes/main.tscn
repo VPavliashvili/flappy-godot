@@ -10,7 +10,6 @@ script = ExtResource("1_kqd16")
 columns_starting_pos = NodePath("../columns_start_position")
 column_count = 20
 distance_beetween_pillar_x = 150
-next_path_diff = 80
 
 [node name="columns_start_position" type="Node2D" parent="."]
 position = Vector2(430, 260)
