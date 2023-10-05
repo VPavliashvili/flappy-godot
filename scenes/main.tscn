@@ -8,7 +8,7 @@
 [node name="pillars_pool" type="Node" parent="." node_paths=PackedStringArray("columns_starting_pos")]
 script = ExtResource("1_kqd16")
 columns_starting_pos = NodePath("../columns_start_position")
-column_count = 20
+column_count = 10
 distance_beetween_pillar_x = 150
 
 [node name="columns_start_position" type="Node2D" parent="."]
