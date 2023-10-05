@@ -4,6 +4,8 @@ extends Node
 @export_range(10, 50) var column_count: int
 @export_range(50, 300) var distance_beetween_pillar_x: int
 
+var pool = []
+
 var column_prefab = preload("res://scenes/column.tscn")
 var rng: RandomNumberGenerator
 var last_column: Node2D
@@ -24,9 +26,14 @@ func _process(_delta):
 	if last_column != null && not has_found_respawn_point_x:
 		if last_column.position.x - distance_beetween_pillar_x < screen.x:
 			respawn_point_x = last_column.position.x + distance_beetween_pillar_x
-			print(last_column.name)
-			print(respawn_point_x)
 			has_found_respawn_point_x = true
+	
+	if has_found_respawn_point_x:
+		if last_column.position.x - distance_beetween_pillar_x < screen.x:
+			var head: Node2D = pool.pop_front() as Node2D
+			reset_column_pos_as_last(head, respawn_point_x)
+			pool.push_back(head)
+			last_column = head
 
 
 func instantiate_columns() -> void:
@@ -38,6 +45,7 @@ func instantiate_columns() -> void:
 	while counter < column_count:
 		var column: Node2D = column_prefab.instantiate() as Node2D
 		add_child(column)
+		pool.append(column)
 
 		set_column_pos_upon_spawn(column, prev_pos_y, start_pos_x, counter)
 
@@ -82,10 +90,32 @@ func set_column_pos_upon_spawn(column: Node2D, prev_pos_y: int, start_pos_x: int
 	column.position = Vector2(pos_x, pos_y)
 
 
-func reset_column_pos_as_last() -> void:
-	pass
+func reset_column_pos_as_last(column: Node2D, pos_x: float) -> void:
+	var path_heigh = column.get("path_heigh")
+	var pos_y: float
 
+	var distance_from_border: float
+	var offset_from_border: int = 50
+	
+	if last_column.position.y > screen.y / 2:
+		distance_from_border = screen.y - (last_column.position.y + path_heigh / 2)
+		if distance_from_border <= offset_from_border:
+			pos_y = last_column.position.y - path_heigh / 2
+			column.position = Vector2(pos_x, pos_y)
+			return
+	else:
+		distance_from_border = last_column.position.y - path_heigh / 2
+		if distance_from_border <= offset_from_border:
+			pos_y = last_column.position.y + path_heigh / 2
+			column.position = Vector2(pos_x, pos_y)
+			return
+		
 
-# tu distancia bolo columnsa da ekrans shoris naklebia
-# distance_beetween_pillar_x-ze mashin sul pirveli columni gadavides
-# bolo columnis position.x + distance_beetween_pillar_x poziciaze
+	var should_add: bool = rng.randi_range(1, 100) > 50
+	if should_add:
+		pos_y = last_column.position.y + path_heigh / 2
+	else:
+		pos_y = last_column.position.y - path_heigh / 2
+
+	column.position = Vector2(pos_x, pos_y)
+
